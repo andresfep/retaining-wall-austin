@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 84 84" role="img" aria-label="Retaining Wall Contractors Austin">
+  <defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#EFC44B"/><stop offset="100%" stop-color="#C79A22"/></linearGradient><linearGradient id="g2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#4A8F6B"/><stop offset="100%" stop-color="#2E6B4F"/></linearGradient></defs>
+  <rect width="84" height="84" rx="14" fill="#0B1721"/>
+  <path d="M8 68C8 40 26 16 46 12c16-3 28 6 34 20" fill="none" stroke="url(#g2)" stroke-width="7" stroke-linecap="round"/>
+  <g fill="url(#g1)"><rect x="6" y="54" width="72" height="13" rx="2"/><rect x="18" y="38" width="60" height="13" rx="2"/><rect x="32" y="22" width="46" height="13" rx="2"/></g>
+  <g stroke="#0B1721" stroke-width="2" opacity=".4"><path d="M30 54v13M54 54v13M40 38v13M62 38v13M50 22v13"/></g>
+</svg>

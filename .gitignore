@@ -1,0 +1,19 @@
+# local build output (the live site is built in place with --here)
+out/
+
+# python
+__pycache__/
+*.pyc
+
+# editors / OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# cloudflare / node
+.wrangler/
+node_modules/
+
+# sample archives
+*.tar.gz

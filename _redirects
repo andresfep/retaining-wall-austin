@@ -1,0 +1,17 @@
+# Force apex
+https://www.retainingwallcontractoraustin.com/*  https://retainingwallcontractoraustin.com/:splat  301
+
+/home            /            301
+/estimate        /#estimate   301
+/free-estimate   /#estimate   301
+/quote           /#estimate   301
+/contact-us      /contact/    301
+/about-us        /about/      301
+/faqs            /faq/        301
+/service-areas   /areas/      301
+
+/installation     /retaining-wall-installation/      301
+/repair           /retaining-wall-repair/            301
+/construction     /retaining-wall-construction/      301
+/types            /retaining-walls/                  301
+/hillside         /hillside-retaining-walls/         301

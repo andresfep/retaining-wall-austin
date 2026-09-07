@@ -119,48 +119,60 @@ for i,a in enumerate(AREAS):
     a["nearby"] = [AREAS[(i+k) % len(AREAS)]["name"] for k in (1,2,3,4)]
 
 # The silo. Order here is the order in the mega menu and the footer.
+# `nav` is only used to build one-word redirect aliases (/installation -> hub).
 SILOS = [
+ dict(label="Retaining Wall Installation", slug="retaining-wall-installation", nav="Installation",
+      blurb="New walls built for the ground they are actually holding — drainage, base, reinforcement "
+            "and the permit path handled as part of the job, not added afterwards.",
+      children=[("Retaining Wall Drainage","retaining-wall-drainage"),
+                ("Base &amp; Footing Preparation","base-footing-preparation"),
+                ("Geogrid Reinforcement","geogrid-reinforcement"),
+                ("Tiered &amp; Terraced Walls","tiered-terraced-walls"),
+                ("Curved Retaining Walls","curved-retaining-walls"),
+                ("Driveway Retaining Walls","driveway-retaining-walls")]),
  dict(label="Retaining Wall Repair", slug="retaining-wall-repair", nav="Repair",
-      blurb="Leaning, cracking, bulging and weeping walls diagnosed properly — including when a repair holds and when it does not.",
-      children=[("Leaning Retaining Wall","leaning-retaining-wall"),
+      blurb="Leaning, bulging, cracking and weeping walls diagnosed properly — including a straight "
+            "answer on when a repair will hold and when it will not.",
+      children=[("Leaning Wall Repair","leaning-wall-repair"),
                 ("Bulging Wall Repair","bulging-wall-repair"),
-                ("Wall Crack Repair","wall-crack-repair"),
+                ("Cracked Wall Repair","cracked-wall-repair"),
                 ("Failing Wall Replacement","failing-wall-replacement"),
                 ("Wall Anchors &amp; Tiebacks","wall-anchors-tiebacks"),
                 ("Drainage Retrofit","drainage-retrofit")]),
- dict(label="Retaining Wall Installation", slug="retaining-wall-installation", nav="Installation",
-      blurb="New walls engineered for the ground they are actually holding — drainage, reinforcement and permits handled.",
-      children=[("Wall Drainage","wall-drainage"),
-                ("Base Preparation","base-preparation"),
-                ("Geogrid Reinforcement","geogrid-reinforcement"),
-                ("Tiered &amp; Terraced Walls","tiered-terraced-walls"),
-                ("Curved Retaining Walls","curved-retaining-walls")]),
- dict(label="Retaining Wall Types", slug="retaining-walls", nav="Wall Types",
-      blurb="Every common wall system, side by side, with the trade-offs that decide which one your ground needs.",
+ dict(label="Retaining Wall Construction", slug="retaining-wall-construction", nav="Construction",
+      blurb="Engineered residential and commercial walls from soils report to final inspection — "
+            "design, excavation, structure and sign-off run by one crew.",
+      children=[("Engineered Retaining Walls","engineered-retaining-walls"),
+                ("Residential Retaining Walls","residential-retaining-walls"),
+                ("Commercial Retaining Walls","commercial-retaining-walls"),
+                ("Retaining Wall Design &amp; Engineering","retaining-wall-design-engineering"),
+                ("Excavation &amp; Site Grading","excavation-site-grading"),
+                ("Retaining Wall Permits","retaining-wall-permits")]),
+ dict(label="Retaining Wall Types", slug="retaining-walls", nav="Types",
+      blurb="Every common wall system side by side, with the trade-offs that decide which one your "
+            "height, soil and budget actually call for.",
       children=[("Limestone Block Walls","limestone-block-walls"),
-                ("Concrete Retaining Walls","concrete-retaining-walls"),
+                ("Poured Concrete Walls","poured-concrete-walls"),
                 ("CMU Block Walls","cmu-block-walls"),
-                ("Wood Retaining Walls","wood-retaining-walls"),
+                ("Segmental Block Walls","segmental-block-walls"),
+                ("Timber Retaining Walls","timber-retaining-walls"),
                 ("Stone &amp; Boulder Walls","stone-boulder-walls"),
-                ("Shotcrete Walls","shotcrete-walls"),
                 ("Gabion Walls","gabion-walls")]),
- dict(label="Hill Country Retaining Walls", slug="hill-country-retaining-walls", nav="Hill Country",
-      blurb="Escarpment lots, limestone benches and canyon rims — the walls that need engineering rather than landscaping.",
+ dict(label="Hillside &amp; Slope Walls", slug="hillside-retaining-walls", nav="Hillside",
+      blurb="Escarpment lots, limestone benches and canyon rims — walls that hold a slope rather "
+            "than tidy a garden, and need engineering to do it.",
       children=[("Slope Stabilization","slope-stabilization"),
-                ("Pier &amp; Beam Walls","pier-and-beam-walls"),
+                ("Pier &amp; Beam Walls","pier-beam-walls"),
                 ("Tieback &amp; Anchored Walls","tieback-anchored-walls"),
                 ("Hillside Grading","hillside-grading"),
                 ("Erosion Control","erosion-control"),
                 ("Downslope &amp; Upslope Lots","downslope-upslope-lots")]),
- dict(label="Commercial Retaining Walls", slug="commercial-retaining-walls", nav="Commercial",
-      blurb="Parking, multifamily and site development walls with stamped engineering and inspection coordination.",
-      children=[("Parking Lot Retaining Walls","parking-lot-retaining-walls"),
-                ("Multi-Unit &amp; HOA Walls","multi-unit-hoa-walls")]),
 ]
 SHOWN = 5   # links per mega-menu column before "View all"
 
 # Which clusters get a page per service area (cluster x city).
-CITY_CLUSTERS = ["retaining-wall-repair","retaining-wall-installation"]
+# Empty for now: the cluster-by-city layer is deliberately not built yet.
+CITY_CLUSTERS = []
 
 # ==========================================================================
 # 2. COPY  —  the words. This is the part that has to be genuinely local.
@@ -170,32 +182,38 @@ CITY_CLUSTERS = ["retaining-wall-repair","retaining-wall-installation"]
 COPY = dict(
  # ---- home -------------------------------------------------------------
  home_title   = "Retaining Wall Contractor in {city}, {state} | Free On-Site Estimates",
- home_desc    = "Retaining wall contractor in {city}, {state} — installation, repair and Hill Country "
-                "terracing in limestone, concrete, block and timber. Free on-site estimate.",
+ home_desc    = "Retaining wall contractor in {city}, {state} — installation, repair, engineered "
+                "construction and hillside walls in limestone, concrete, block and timber. Free on-site estimate.",
  home_h1      = "Retaining Wall Contractor",
  home_h1_sub  = "in {city}, {state}",
- home_lede    = "{brand} builds and repairs retaining walls across {region} — from the limestone "
-                "benches west of the Balcones Escarpment to the expansive clay east of it. Two very "
-                "different grounds, and they do not take the same wall.",
+ home_lede    = "The Balcones Escarpment runs through {city} roughly along the MoPac corridor, and it "
+                "divides the city into two kinds of ground that do not take the same wall. West of the "
+                "line, thin soil sits on Edwards and Glen Rose limestone that bites a saw blade; east of "
+                "it, Blackland Prairie clay swells in a wet March and shrinks hard in an August drought. "
+                "{brand} builds and repairs retaining walls on both.",
  # the local conditions that make this city a specialist job
  conditions = [
-   ("The Balcones Escarpment splits the city in two.",
-    "West of it you are on thin soil over hard limestone; east of it you are on Blackland Prairie clay. "
-    "A wall designed for one is the wrong wall on the other, and the line runs straight through town."),
+   ("The escarpment decides the footing before you do.",
+    "Along Loop 360 and Bee Cave Road the footing usually keys into rock a foot or two down and the "
+    "expensive part is the excavation. Off Manor Road or in Pflugerville it sits in clay with a "
+    "measurable potential vertical rise, and the expensive part is designing for movement."),
    ("Blackland clay moves more than almost any soil in the country.",
-    "It swells when it takes on water and shrinks hard in a {city} summer. Footings are sized for that "
-    "annual cycle, not for the weight of the wall."),
-   ("Limestone is excellent to found on and difficult to dig.",
-    "Where rock is shallow it gives superb bearing and changes excavation cost and method entirely."),
+    "Houston Black and the Taylor marl beneath it take on water through spring and give it back through "
+    "summer. A wall on that ground is sized for the annual heave-and-shrink cycle, not for its own weight."),
    ("Rain arrives as a flood, not a season.",
-    "{region} takes much of its rain in a handful of intense storms. Drainage is sized for the peak "
-    "event rather than the annual figure."),
-   ("Heritage trees are protected and they are everywhere.",
-    "{city}'s tree ordinance affects where a footing can go, and it is resolved at design stage rather "
-    "than discovered by an inspector."),
-   ("Water quality rules apply over the aquifer.",
-    "Work in the Barton Springs Zone and the Edwards Aquifer recharge area carries requirements that "
-    "ordinary lots do not."),
+    "{region} sits in Flash Flood Alley. Shoal, Waller, Walnut and Onion Creek all rise in hours, so "
+    "drainage behind a wall is sized for the peak storm rather than the annual rainfall figure."),
+   ("The heritage tree ordinance is a design constraint, not an inspection surprise.",
+    "In the city limits a protected tree's critical root zone limits where you can cut, fill or set a "
+    "footing, and heritage-class live oaks and pecans carry stricter limits again. We resolve that on "
+    "the drawing before anyone digs."),
+   ("Over the aquifer the rules change again.",
+    "Lots inside the Barton Springs Zone and on the Edwards Aquifer recharge area carry water quality "
+    "requirements — impervious cover, runoff controls, sometimes a TCEQ plan — that a lot in Mueller never sees."),
+   ("Permits depend on which desk your address belongs to.",
+    "The City of {city}, West Lake Hills, Rollingwood, Lakeway, Round Rock and the unincorporated "
+    "county each review walls differently. Knowing which one applies is the first question our "
+    "<a href=\"/retaining-wall-construction/\">retaining wall builders</a> answer."),
  ],
  # ---- service area page ------------------------------------------------
  area_title   = "Retaining Wall Contractor in {area}, {state} | Free On-Site Estimates",
@@ -214,10 +232,301 @@ COPY = dict(
  hub_title    = "{label} in {city}, {state} | Free On-Site Estimates",
  hub_desc     = "{blurb} Serving {city} and {region}. Free on-site estimate and an itemised written scope.",
  hub_lede     = "{brand} — {blurb}",
+ # Per-hub opening paragraphs, keyed by silo slug. Each hub must open differently.
+ hub_intro = {
+  "retaining-wall-installation": [
+    "A new retaining wall in {city} starts with a question most quotes skip: which side of the "
+    "escarpment is the lot on? A wall on a Westlake bench sits on limestone that gives superb bearing "
+    "and terrible digging, so the base is shallow and keyed to rock while the money goes into the "
+    "excavation. The same wall off Berkman Drive or out in Manor sits on Blackland clay that heaves "
+    "every spring, so the footing goes deeper, the drainage gets bigger and the block is chosen for "
+    "how it tolerates movement.",
+    "Installation here is a sequence rather than a product. We set the grade, cut the bench, prepare "
+    "and compact the base, build the wall with its gravel chimney and drain line, add geogrid where the "
+    "height or the surcharge calls for it, and backfill in lifts — photographing each layer before it "
+    "disappears. If the wall needs a stamped design, our "
+    "<a href=\"/retaining-wall-construction/\">retaining wall builders</a> run that through the "
+    "engineer and the permit desk before the first truck arrives."],
+  "retaining-wall-repair": [
+    "Most retaining walls we are called to in {city} did not fail because the block was bad. They "
+    "failed because water had nowhere to go. A wall in Travis Heights built without a drain line takes "
+    "on Blunn Creek's watershed every time a storm stalls over South Austin, and the hydrostatic load "
+    "behind it can double the pressure the wall was ever meant to hold. On the clay side of town the "
+    "same wall gets pushed a little further every spring and never quite comes back.",
+    "Repair starts with reading the wall. A lean that measures the same in March as it did in "
+    "October is a different problem from one that is still moving, and a stepped diagonal crack means "
+    "settlement while a long horizontal one means pressure. We tell you which you have, what will "
+    "actually hold it, and — when the footing is gone — when replacement is the cheaper answer over "
+    "ten years rather than the more expensive one this year."],
+  "retaining-wall-construction": [
+    "When a retaining wall holds up a driveway, a pool deck, a parking lot or the ground under a "
+    "neighbour's house, it stops being landscaping and becomes structure. In {city} that line is "
+    "reached quickly: on the Loop 360 corridor a garage pad may need a wall taller than the code "
+    "exemption before you have finished grading, and inside the Barton Springs Zone the water quality "
+    "review starts before the structural one does.",
+    "Construction is the end-to-end version of the job — a soils report where the height or the "
+    "surcharge demands it, a stamped design, the permit application to whichever jurisdiction your "
+    "address falls under, then excavation, structure, drainage, inspections and close-out run by one "
+    "crew that owns the whole sequence."],
+  "retaining-walls": [
+    "Drive from Tarrytown to Pflugerville and you will pass every kind of retaining wall {region} "
+    "builds: dry-stacked Cordova cream limestone on the older lots near Lake Austin, poured concrete "
+    "holding cut slopes along RM 2222, segmental block terracing the newer subdivisions off Parmer "
+    "Lane, and treated timber on the budget jobs that are now twenty years old and leaning. Each one "
+    "was a reasonable choice somewhere. Not all of them were a reasonable choice where they were built.",
+    "This section lays the systems out side by side. The right one is set by height, by the soil "
+    "behind it, by what loads the ground above it, by access for the equipment and by budget — in "
+    "roughly that order — and west of the escarpment and east of it usually point at different answers."],
+  "hillside-retaining-walls": [
+    "West of MoPac the ground stops being flat. Lots above Bull Creek, along the Barton Creek "
+    "greenbelt and out on the Lake Travis canyons drop twenty, thirty or forty feet across a single "
+    "parcel, and the walls on them are not tidying a garden — they are holding a hillside in place "
+    "under a house. {city}'s own code recognises this: build on a slope over fifteen percent and the "
+    "rules tighten, and along the Hill Country roadway corridors they tighten again.",
+    "Hillside work is engineering first. We look at how the slope is actually behaving — a creeping "
+    "clay seam above the Glen Rose, a bench of fractured Edwards limestone, an old cut that was never "
+    "benched — and choose between stabilising the slope, anchoring the wall into it, or founding the "
+    "wall on piers below the moving layer. The right answer is rarely the tallest wall."],
+ },
+ # Optional extra H2 sections on a hub, after "What We Cover". Keyed by silo slug.
+ hub_sections = {
+  "retaining-wall-construction": [
+    ("Retaining Wall Builders in {city}", [
+      "People searching for retaining wall builders in {city} usually mean this page: a crew that "
+      "takes a wall from a sketch on a napkin to a signed-off structure without handing it between "
+      "three companies. Our builders do the excavation, the base, the block or the concrete, the "
+      "drainage and the backfill themselves, and they coordinate the engineer and the inspector "
+      "rather than leaving that to you.",
+      "That matters more in {region} than in most places. A builder who has set footings in the "
+      "Del Rio Clay that underlies parts of central {city} knows why the design calls for the depth it "
+      "does, and a builder who has trenched through Edwards limestone above Bull Creek knows to price "
+      "the rock before the block. The wall types we build are covered under "
+      "<a href=\"/retaining-walls/\">retaining wall types</a>; what changes on a slope is under "
+      "<a href=\"/hillside-retaining-walls/\">hillside and slope walls</a>."]),
+  ],
+ },
  # ---- sub-cluster page --------------------------------------------------
  child_title  = "{child} in {city}, {state}",
  child_desc   = "{child} in {city}, {state} — what it is, when it is needed and what the work involves. "
                 "Free on-site estimate.",
+ # Per-sub-page copy, keyed by child slug. Only the clusters being built need entries;
+ # a child without an entry falls back to the placeholder skeleton.
+ child = {
+  "retaining-wall-drainage": dict(
+    lede="handles the drainage that decides whether a {city} retaining wall lasts thirty years or three.",
+    what=[
+      "Retaining wall drainage is everything that gives water behind the wall a way out that is not "
+      "through the wall: a column of clean gravel against the back face, filter fabric keeping the "
+      "soil out of that gravel, a perforated drain line at the base, weep holes where the system "
+      "needs them, and an outlet that actually discharges somewhere legal and downhill.",
+      "In {city} it is the single most important part of the wall, and the part most often missing. "
+      "Blackland clay east of the escarpment holds water like a sponge, and when it is saturated the "
+      "load against a wall is no longer the soil — it is the soil plus the water pressing on it. "
+      "Walls on Houston Black clay in Pflugerville and Manor have been pushed over by that hydrostatic "
+      "pressure alone, with the block still perfectly sound.",
+      "West of MoPac the problem is different but not smaller. Thin soil over Glen Rose limestone "
+      "drains fast at the surface and then stops dead at the rock, so a wall on a Westlake bench "
+      "collects the whole slope above it against a floor that will not absorb anything. A storm that "
+      "stalls over the Barton Creek watershed can fill the space behind an undrained wall in an hour."],
+    when=[
+      ("Every wall over about two feet.","Below that a well-built wall can survive without it; above it the water load matters more than the soil load."),
+      ("Any wall on clay.","Houston Black, Taylor marl and the Del Rio Clay all hold water and swell with it. Drainage keeps the swell out of the wall."),
+      ("Walls at the bottom of a slope.","On the Loop 360 lots the wall catches everything uphill of it. The drain is sized for that catchment, not for the wall's own backfill."),
+      ("An existing wall that weeps or stains.","Efflorescence, moss and wet patches after rain mean water is finding its own way through. That is the wall telling you it needs a drain."),
+      ("Inside the Barton Springs Zone.","Where the outlet goes is a water quality question there, and the design has to answer it before the permit desk asks.")],
+    how=[
+      ("Gravel chimney the full height.","Washed stone twelve inches or more against the back face, not a token strip at the bottom."),
+      ("Filter fabric between soil and stone.","Without it the clay migrates into the gravel within a few seasons and the drain silts shut."),
+      ("Perforated pipe at the base with a fall.","Laid on the footing, sleeved, and graded to a daylight outlet, a drywell or a storm connection."),
+      ("Surface water dealt with separately.","A swale or a French drain above the wall so the roof and driveway runoff never reaches the backfill."),
+      ("Photographed before backfill.","Every drain we build goes in the file as pictures, because once it is covered you cannot check it.")],
+    faqs=[
+      ("Does a short garden wall in {city} really need drainage?",
+       "If it is under about two feet and on well-drained ground, it can usually manage with gravel backfill alone. On clay, or at the foot of a slope, even a short wall benefits from a proper drain, because the water load is what moves walls here."),
+      ("Where does the water go once it is drained?",
+       "Ideally to daylight — a lower point on the lot where the pipe can discharge onto grade. Where the lot is flat, we use a drywell or connect to an existing storm line. Discharging onto a neighbour's property is not an option, and inside the Barton Springs Zone the outlet is part of the water quality review."),
+      ("Can drainage be added to a wall that was built without it?",
+       "Often, yes. We excavate behind the wall, install the gravel, fabric and pipe, and backfill. Where the wall has already moved, the retrofit is paired with anchoring or rebuilding the leaning section — the drain stops the cause, it does not undo the damage.")]),
+  "base-footing-preparation": dict(
+    lede="prepares the base and footing that every {city} retaining wall either stands on or fails from.",
+    what=[
+      "Base and footing preparation is the work under the wall: excavating to a stable stratum, "
+      "cutting a level bench, placing and compacting a crushed-stone leveling pad or forming and "
+      "pouring a concrete footing, and getting the first course dead level and embedded below grade. "
+      "Every course above copies whatever the first one does.",
+      "Nowhere in {region} is this more variable than in {city} itself. On the west side, a footing "
+      "trench off Bee Cave Road hits Glen Rose or Edwards limestone within a foot or two, and the "
+      "question becomes how to key into rock rather than how deep to go. Across town in the Blackland "
+      "clay, the footing has to reach below the zone that swells and shrinks with the seasons, or the "
+      "wall lifts every spring and drops every summer until the joints open.",
+      "The escarpment's edge is the hardest ground of all. Along the fault zone through central "
+      "{city} — Clarksville, Bouldin, parts of Hyde Park — the Del Rio Clay and the Austin Chalk meet "
+      "at odd angles, and a single footing trench can run from rock at one end into expansive clay at "
+      "the other. We dig a test hole before we quote precisely because of streets like those."],
+    when=[
+      ("Every new wall, without exception.","There is no wall system that survives a bad base. Block, concrete, timber and gabion all fail the same way when the ground under them moves."),
+      ("Rebuilding a wall that settled.","A stepped diagonal crack or a low corner usually means the original base was too shallow or never compacted. Rebuilding on the same base repeats the failure."),
+      ("Any wall on expansive clay.","On Houston Black or the Taylor marl the footing depth is a soils question, and the answer is usually deeper than the block manufacturer's chart."),
+      ("Walls keyed into limestone.","Rock gives excellent bearing but no forgiveness for a footing that is half on rock and half on the fill beside it."),
+      ("Walls near heritage trees.","Inside a protected tree's critical root zone the footing depth and method are constrained, and sometimes the wall moves to keep the tree.")],
+    how=[
+      ("Dig to the stratum, not to a number.","We excavate until we are on ground that will carry the wall, and we photograph what we found."),
+      ("Crushed stone in compacted lifts.","A leveling pad of clean crushed limestone, placed in thin lifts and compacted with a plate, rather than one thick loose layer."),
+      ("Concrete footings where the design calls for them.","Tall walls, surcharged walls and poured walls get a reinforced footing sized by the engineer, with the steel inspected before the pour."),
+      ("First course embedded.","At least one course buried below finished grade, more on a slope, so the toe cannot kick out."),
+      ("Level checked on every course.","A base that is out by a quarter inch is out by an inch six courses up.")],
+    faqs=[
+      ("How deep does a retaining wall footing need to be in {city}?",
+       "It depends on which side of the escarpment you are on. On limestone the footing keys into rock wherever that is, often shallow. On Blackland clay it needs to reach below the seasonally active zone, and that depth comes from a soils report, not a rule of thumb."),
+      ("Do you use concrete or gravel under the wall?",
+       "Both, depending on the wall. Segmental block and dry-stacked limestone sit on a compacted crushed-stone pad. Poured concrete, CMU and tall engineered walls sit on a reinforced concrete footing. The engineer decides for walls that need one."),
+      ("What happens if you hit rock?",
+       "West of MoPac we expect to. Shallow rock is good news for bearing and bad news for excavation cost, and it is one of the reasons we walk the site and dig a test hole before giving you a number rather than after.")]),
+  "geogrid-reinforcement": dict(
+    lede="installs the geogrid reinforcement that lets a {city} block wall stand taller than gravity alone allows.",
+    what=[
+      "Geogrid reinforcement is a polymer mesh laid in horizontal layers between courses of a "
+      "retaining wall and extending back into the compacted fill. It turns the wall and the soil "
+      "behind it into a single reinforced mass, so the wall no longer relies on its own weight to "
+      "resist the push of the earth. It is how segmental block walls over about three or four feet "
+      "are built, and how they stay standing.",
+      "Around {city} geogrid is the difference between a wall that is landscaping and one that is "
+      "structure. The terraced subdivisions off Parmer Lane and along Slaughter Lane are full of "
+      "segmental block walls that hold four to eight feet of grade, and every one of them that is "
+      "still plumb has grid in it. The ones that have bellied out in the middle usually do not.",
+      "Blackland clay adds a complication. Geogrid needs granular, compactable fill to lock into, and "
+      "native Houston Black clay is neither. On the east side the reinforced zone is built with "
+      "imported select fill, which changes the excavation and the trucking, and which is why a geogrid "
+      "wall in Pflugerville is priced differently from the same wall in Westlake."],
+    when=[
+      ("Segmental block walls over about three feet.","Below that the block's own weight and batter can hold the soil; above it the manufacturer and the engineer both call for grid."),
+      ("Any wall with a surcharge.","A driveway, a pool, a patio or a slope above the wall adds load the block was never designed to carry alone."),
+      ("Tiered walls closer together than twice their height.","The upper tier loads the lower one, and grid is what carries that load into the fill."),
+      ("Walls on clay.","Reinforced select fill behind the wall isolates it from the seasonal swell of the native soil."),
+      ("Replacing a bulged block wall.","A wall that bowed did so because nothing tied it back. The rebuild gets grid whether the original had it or not.")],
+    how=[
+      ("Designed, not guessed.","Grid strength, length and spacing come from the engineer's design for the height, the surcharge and the soil, not from the pallet label."),
+      ("Rolled out in the strong direction.","Geogrid is stronger one way than the other. Laid the wrong way it is a very expensive weed barrier."),
+      ("Tensioned and pinned before fill.","Each layer is pulled taut, held, and covered with fill compacted in thin lifts so the grid is locked, not slack."),
+      ("Select fill where the native soil will not do.","Crushed limestone or a specified granular fill in the reinforced zone on the clay side of town."),
+      ("Every layer photographed.","Grid is the first thing an inspector cannot see once the wall is backfilled, so we record it.")],
+    faqs=[
+      ("How far back does the geogrid need to go?",
+       "Typically about sixty to seventy percent of the wall's height, and further for a surcharged wall. That sets the width of the excavation, which is often the surprise on a tight {city} lot with a fence or a tree behind the wall line."),
+      ("Can you add geogrid to an existing wall?",
+       "Not without taking the wall down to the level where the grid goes. On a bulged wall that usually means rebuilding the top portion with grid installed properly, which is a repair we do often."),
+      ("Does a poured concrete wall need geogrid?",
+       "No. Concrete and CMU walls resist the load with steel and a footing, not with reinforced soil. Geogrid belongs to segmental block, timber and some gabion systems.")]),
+  "tiered-terraced-walls": dict(
+    lede="designs and builds tiered and terraced walls that turn a {city} slope into usable ground.",
+    what=[
+      "Tiered and terraced retaining walls are two or more shorter walls stepped up a slope instead "
+      "of one tall wall at the bottom. Done properly, each tier is set back far enough that it "
+      "carries only its own soil; done badly, the upper tier is a surcharge on the lower one and the "
+      "whole system behaves like a single tall wall that nobody engineered.",
+      "Terracing suits {city}'s west side better than almost any other approach. A lot above Bull "
+      "Creek or on the ridges off Southwest Parkway drops steeply, and a single ten-foot wall there "
+      "would need a permit, a stamped design and a great deal of concrete. Three walls of a little over "
+      "three feet each, stepped back with planting between them, can hold the same grade, stay under "
+      "the height where the city's review gets heavy, and look like they belong on a Hill Country lot.",
+      "The catch is the setback rule. If the tiers sit closer together than roughly twice the height "
+      "of the lower wall, the engineer treats them as one wall, and the lowest tier is designed for "
+      "everything above it. On the small lots of Rollingwood and Travis Heights that geometry often "
+      "does not fit, which is a conversation to have at the survey stage rather than the block stage."],
+    when=[
+      ("Grade changes over about four feet.","One tall wall needs engineering and a permit almost everywhere; two or three shorter tiers often do not, and they hold better."),
+      ("Sloping lots you want to use.","Terraces make level ground for a lawn, a vegetable bed or a patio where a single wall would leave a steep bank."),
+      ("Sites where a tall wall would look industrial.","Stepped limestone tiers with planting suit Westlake and Barton Creek in a way that a ten-foot concrete face does not."),
+      ("Slopes where the base tier can drain.","Each terrace needs its own drainage and a way to pass water down to the next; if the bottom cannot outlet, the design changes."),
+      ("Heritage tree constraints.","Tiers can be arranged around a protected live oak's root zone where a single wall at the toe could not.")],
+    how=[
+      ("Set back to act independently.","We lay out the tiers so each carries its own load, or we design the lower tier for the surcharge and say so."),
+      ("Drainage in every tier.","Gravel, fabric and a drain line behind each wall, outletting to the tier below and finally to daylight."),
+      ("Geogrid where the tiers interact.","Where the setback is tight, the lower tier gets grid designed for the combined load."),
+      ("Stable ground between terraces.","Compacted fill, not loose topsoil, so the upper tier does not settle into the space behind the lower one."),
+      ("Access planned before the first cut.","Terraces are built from the bottom up on slopes where the excavator cannot always reach the top.")],
+    faqs=[
+      ("Do tiered walls need a permit in {city}?",
+       "If each tier is genuinely independent and under the exemption height, often not. If the tiers are close enough to act as one wall, the city measures the combined height. We tell you which applies before the design is drawn."),
+      ("How far apart should the tiers be?",
+       "The usual rule is a horizontal setback of at least twice the height of the lower wall. A three-foot lower tier wants six feet of terrace before the next wall starts. Tighter than that and the lower tier is engineered for both."),
+      ("What goes in the space between the walls?",
+       "Whatever you want that does not add load — planting, lawn, gravel paths. A patio slab or a hot tub on a terrace is a surcharge on the wall below it and needs to be in the design.")]),
+  "curved-retaining-walls": dict(
+    lede="builds curved retaining walls that follow a {city} lot line, a creek bank or a driveway instead of fighting it.",
+    what=[
+      "A curved retaining wall follows an arc rather than a straight line — around a tree, along a "
+      "circular driveway, following the contour of a slope or the edge of a pool deck. Structurally "
+      "a convex curve is often stronger than a straight wall of the same height, because the arch "
+      "pushes the courses together; a concave curve is the opposite, and each course wants to open "
+      "at the joints under load.",
+      "Around {city} curves are rarely decorative. The older lots in Tarrytown and Pemberton Heights "
+      "were platted around the live oaks that are now heritage trees, and a wall that respects a "
+      "critical root zone has to bend around it. Along the creek lots in Barton Hills and Zilker the "
+      "contour is a curve because the creek made it one. And on the Lake Austin lots off Westlake "
+      "Drive the drive itself sweeps down to the water and the wall holding it sweeps with it.",
+      "Radius sets the material. Tight curves want small segmental block or dry-stacked limestone; "
+      "long sweeps can be poured concrete or CMU with the steel bent to suit. Timber does curves "
+      "badly, and geogrid in a curved wall has to be laid in overlapping fans rather than parallel "
+      "strips, which is a detail that separates a wall that stays put from one that bulges at the "
+      "outside of the bend."],
+    when=[
+      ("Working around a protected tree.","A curve that keeps the footing outside the critical root zone is frequently the only way to keep both the tree and the wall."),
+      ("Following a driveway or a drive turnaround.","Straight walls on a curved drive leave awkward wedges of ground and worse sightlines."),
+      ("Contour-following walls on a slope.","Following the natural grade line keeps the wall height even and the excavation lighter."),
+      ("Pool and patio edges.","A curved planter wall or seat wall around a pool deck is a retaining wall with a surcharge on it and is designed as one."),
+      ("Replacing a straight wall that never fitted the lot.","Many older walls were built straight because it was easier, and the ground has been arguing with them since.")],
+    how=[
+      ("Radius set out with a string line and pins.","The curve is marked on the ground and the base is cut to it before any block is placed."),
+      ("Block chosen for the radius.","Tapered segmental units or cut limestone for tight curves; larger units where the sweep allows."),
+      ("Geogrid laid in overlapping fans.","On a curve the grid cannot run parallel, so each strip overlaps the last and the outside of the bend is fully covered."),
+      ("Drainage that follows the curve.","Flexible perforated pipe on the footing, graded through the arc to a single outlet."),
+      ("Cut units, not gapped ones.","On a concave curve we cut the block to close the joints rather than leaving wedges to fill with mortar.")],
+    faqs=[
+      ("Is a curved retaining wall weaker than a straight one?",
+       "A convex curve, bowing toward the soil, is usually stronger. A concave curve, wrapping around the soil, is weaker at the joints and is detailed with cut units, tighter grid spacing and often a stiffer wall system to compensate."),
+      ("Which wall systems can be built on a curve?",
+       "Segmental block and dry-stacked limestone handle tight radii well. Poured concrete and CMU can follow long curves. Timber is the worst choice for a curve and we generally steer people away from it."),
+      ("Can you curve a wall around a heritage tree in {city}?",
+       "Often, yes — it is one of the main reasons we build curved walls here. The wall is set out to keep the footing outside the tree's critical root zone, and we coordinate with the city arborist's requirements as part of the design.")]),
+  "driveway-retaining-walls": dict(
+    lede="builds driveway retaining walls in {city} that carry a parked truck as well as the ground behind them.",
+    what=[
+      "A driveway retaining wall holds the ground beside or beneath a drive — the cut on the uphill "
+      "side of a sloping driveway, the fill under a drive that has been built out over a bank, or "
+      "the edge of a parking pad on a lot that falls away. Unlike a garden wall, it carries a live "
+      "load: a vehicle parked a few feet from the wall face pushes on the soil the wall is holding, "
+      "and that surcharge is the single thing most often left out of the design.",
+      "West {city} produces more of these than anywhere else in {region}. The lots off Loop 360, "
+      "along Bee Caves Road and up on the Mount Bonnell ridges were sold with views, not level "
+      "ground, and getting a car from the street to the garage means either cutting into the "
+      "hillside or building the drive out on fill. Either way there is a wall, it is usually taller "
+      "than the permit exemption, and it is holding a slope with a two-ton surcharge on top of it.",
+      "On the flatter east side the driveway wall is a different animal: a short wall that levels a "
+      "corner lot in Windsor Park or Cherrywood, sitting in Blackland clay, with a concrete drive "
+      "poured right against it. The problem there is not height but movement — the clay heaves the "
+      "drive against the wall every spring, and a wall that was never designed for that load cracks "
+      "along the joint."],
+    when=[
+      ("A sloping drive with a cut on one side.","The cut face needs a wall as soon as it is taller than the soil will stand on its own, which on a Westlake lot can be the first foot."),
+      ("A drive or parking pad built on fill.","The fill needs a wall to hold it, and the wall needs to be designed for the vehicle load on top."),
+      ("Any wall within a few feet of where cars park.","A vehicle surcharge applies whether the wall was meant for it or not, and it changes the design markedly."),
+      ("A cracked or leaning wall beside an existing drive.","Usually a wall that was designed as a garden wall and has been carrying a driveway for years."),
+      ("Garage and carport approaches on hillside lots.","The wall, the drive slab and the drainage under it are one system and are designed together.")],
+    how=[
+      ("Surcharge in the design from the start.","The engineer sizes the wall for the vehicle load, not for the soil alone."),
+      ("Engineered where the height or the load requires it.","Most driveway walls over the exemption height carry a stamped design and a permit, and we handle both."),
+      ("Drainage under the drive as well as behind the wall.","Runoff from the drive itself is intercepted before it reaches the backfill."),
+      ("Structural systems for structural loads.","Poured concrete, reinforced CMU or heavily gridded block; timber does not carry a truck for long."),
+      ("Coordinated with the drive pour.","A movement joint between the slab and the wall so the clay can heave the drive without loading the wall.")],
+    faqs=[
+      ("Does a driveway retaining wall in {city} need a permit?",
+       "Usually. The exemption for short walls generally falls away once there is a surcharge — and a driveway is a surcharge — so even a modest wall beside a drive commonly needs an engineered design and a permit. Which desk reviews it depends on whether you are in the city, a suburb with its own department, or the county."),
+      ("Can I use segmental block for a driveway wall?",
+       "Yes, with geogrid designed for the vehicle load and enough width behind the wall for the reinforced zone. Where the lot is too tight for that, a reinforced concrete or CMU wall does the same job in less space."),
+      ("My driveway wall is cracking where the concrete meets it. Why?",
+       "On the clay side of town it is almost always the drive slab heaving against the wall. The fix is a proper movement joint and, if the wall has moved, anchoring or rebuilding the affected section.")]),
+ },
  # ---- cluster x area page ----------------------------------------------
  cx_title     = "{label} in {area}, {state} | Free On-Site Estimates",
  cx_desc      = "{label} in {area}, {state}. {blurb} Free on-site assessment and an itemised written scope.",
@@ -237,40 +546,45 @@ COPY = dict(
  faq_groups = [
    ("Cost and quoting","What a wall costs, and why nobody can tell you over the phone.", [
      ("How much does a retaining wall cost in {city}?",
-      "Height, ground conditions and access drive it far more than the wall type, which is why we do not "
-      "publish a price per foot. Whether you are on limestone or Blackland clay can change the footing "
-      "entirely on two lots the same height apart."),
+      "Height, ground and access drive it far more than the wall type, which is why we do not publish a "
+      "price per foot. Two walls of the same height a mile apart — one keyed into limestone off Bee Cave "
+      "Road, one founded in Blackland clay off Manor Road — can need completely different footings."),
      ("Why won't you quote over the phone?",
       "Because a firm number without a site visit is a guess that gets corrected upwards once digging "
-      "starts. In {region} what is under the grass is frequently rock at one end and clay at the other."),
+      "starts. In {region} what is under the grass is frequently rock at one end of the trench and clay "
+      "at the other, and a photo does not show which."),
      ("What makes one quote cheaper than another?",
       "Usually the lines, not the labour. Drainage is the easiest thing to leave out of a bid and the "
-      "hardest thing to notice missing."),
+      "hardest thing to notice missing until the wall leans."),
      ("Do you charge for the estimate?",
       "No. On-site estimates are free, carry no obligation, and you keep the written scope either way."),
    ]),
    ("Permits and engineering","When a wall stops being landscaping and becomes a structure.", [
      ("Do I need a permit for a retaining wall in {city}?",
-      "Commonly once you pass a height threshold, and sooner with a surcharge above the wall. Which "
-      "department reviews it depends on your address — {city}, one of the small incorporated cities, or "
-      "the county."),
+      "Commonly once you pass a height threshold — four feet measured from the bottom of the footing is "
+      "the usual line — and sooner when something loads the ground above the wall. Which department "
+      "reviews it depends on your address: the City of {city}, one of the small incorporated cities like "
+      "West Lake Hills or Rollingwood, or the county."),
      ("Does the heritage tree ordinance affect my wall?",
-      "It can decide where the footing goes. Protected trees are resolved on paper at design stage, "
-      "because moving a wall is cheaper than the alternative."),
+      "It can decide where the footing goes. Inside the city limits a protected tree's critical root "
+      "zone limits cutting, filling and impervious cover, and heritage-class trees carry stricter rules "
+      "again. We resolve it on paper at design stage, because moving a wall is cheaper than the alternative."),
      ("What if I'm over the aquifer recharge zone?",
-      "Work in the Barton Springs Zone and the Edwards Aquifer recharge area carries water quality "
-      "requirements ordinary lots do not. It is a design-stage question."),
+      "Work in the Barton Springs Zone and on the Edwards Aquifer recharge area carries water quality "
+      "requirements that ordinary lots do not — impervious cover limits, runoff controls, and for larger "
+      "projects a state-level plan. It is a design-stage question, not a construction-stage one."),
      ("Do I need an engineer?",
-      "Tall walls, walls protecting a structure and slopes already moving do. We will say so even when "
-      "it makes the project larger."),
+      "Tall walls, walls protecting a structure or a driveway, and slopes that are already moving do. "
+      "We will say so even when it makes the project larger, because the alternative is a wall that "
+      "fails with your name on the permit."),
    ]),
    ("Choosing a wall","Which system belongs on your ground.", [
      ("What type of retaining wall is best here?",
       "There is no universal answer — there is a right one for your height, soil, surcharge, access and "
       "budget. West of the escarpment and east of it usually point at different systems."),
      ("Is limestone block a good choice?",
-      "It suits {region} well and matches what is already on most properties. Whether it works "
-      "structurally depends on height and what sits above the wall."),
+      "It suits {region} well and matches what is already on most properties west of MoPac. Whether it "
+      "works structurally depends on height and what sits above the wall."),
      ("How tall can a wall be without engineering?",
       "There is a height threshold, and it effectively drops to zero the moment something loads the "
       "ground above the wall — a driveway, a pool, a structure."),
@@ -280,7 +594,7 @@ COPY = dict(
    ]),
    ("Problems with an existing wall","How to read what your wall is telling you.", [
      ("My wall is leaning. Is it dangerous?",
-      "It depends how far and whether it is still moving. Get it looked at before the wet season — the "
+      "It depends how far and whether it is still moving. Get it looked at before the spring rains — the "
       "options are far wider while it is standing."),
      ("Are cracks serious?",
       "The pattern matters more than the width. Stepped diagonal cracking usually means settlement; a "
@@ -295,9 +609,10 @@ COPY = dict(
  ],
  # ---- about / contact ---------------------------------------------------
  about_story = "We have been building retaining walls across {region} since {founded}. The work narrowed "
-               "to walls on purpose: on ground that changes from limestone to Blackland clay within a few "
-               "miles, a retaining wall is a structural problem wearing a landscaping costume, and doing "
-               "it alongside patios and planting means doing it second-best.",
+               "to walls on purpose: on ground that changes from Edwards limestone to Blackland clay "
+               "within a few miles, a retaining wall is a structural problem wearing a landscaping "
+               "costume, and doing it alongside patios and planting means doing it second-best. Our "
+               "<a href=\"/retaining-wall-construction/\">retaining wall builders</a> do nothing else.",
  glance = [("{years} years.","Building retaining walls across {region} since {founded}."),
            ("Retaining walls only.","Not a landscaping company with a wall crew — it is the whole of what we do."),
            ("A written itemised scope.","Before you commit, with drainage, footing and engineering as separate lines."),
@@ -1300,7 +1615,7 @@ def business_node():
 
 def crumb_node(trail):
     return {"@type":"BreadcrumbList","itemListElement":[
-      {"@type":"ListItem","position":i+1,"name":n,"item":SITE['domain']+u} for i,(n,u) in enumerate(trail)]}
+      {"@type":"ListItem","position":i+1,"name":strip(n),"item":SITE['domain']+u} for i,(n,u) in enumerate(trail)]}
 
 def faq_node(pairs):
     return {"@type":"FAQPage","mainEntity":[{"@type":"Question","name":strip(T(q)),
@@ -1339,7 +1654,7 @@ def p_home():
             'That is exactly what the first conversation is for. <a href="/contact/">Get in touch</a>.</p>\n')
     body += ('<section class="pagebody">\n  <div class="wrap narrow"><article>\n%s  </article></div>\n</section>\n'
              % T(scase(art)))
-    body += steps("Process",T("How a {city} Project Runs"),
+    body += steps("Process",T("How a Project Runs in {city}"),
         "Five phases from first call to sign-off. You will know which one you are in at any point.",
         COPY['process'])
     body += area_grid(T("Areas We Serve Around {city}"),
@@ -1364,15 +1679,16 @@ def p_hub(s):
                 T(COPY['hub_lede'],**fmt),[("Home","/"),(s['label'],None)],"hero-%s"%s['slug'])
     art  = '      <h2>%s in %s, %s</h2>\n'%(s['label'],SITE['city'],SITE['state'])
     art += '      <p>%s</p>\n'%T(s['blurb'])
-    art += ('      <p>What that means on the ground changes across {region}. The Balcones Escarpment puts '
-            'thin soil over hard limestone on one side of the city and deep expansive clay on the other, '
-            'so the same job description produces two different walls depending on your address.</p>\n')
+    for para in COPY.get('hub_intro',{}).get(s['slug'],[]):
+        art += '      <p>%s</p>\n'%T(para)
     art += '      <h2>What We Cover</h2>\n'
     art += cat_grid([(c[0],child_url(s,c[1])) for c in s['children']])
+    for h2,paras in COPY.get('hub_sections',{}).get(s['slug'],[]):
+        art += '      <h2>%s</h2>\n'%T(h2) + ''.join('      <p>%s</p>\n'%T(x) for x in paras)
     art += '      <h2>How We Work</h2>\n'+checklist([(T(a),T(b)) for a,b in COPY['standards']])
     body += ('<section class="pagebody">\n  <div class="wrap narrow"><article>\n%s  </article></div>\n</section>\n'
              % T(scase(art)))
-    body += steps("Process",T("How a {city} Project Runs"),
+    body += steps("Process",T("How a Project Runs in {city}"),
         "Five phases from first call to sign-off.",COPY['process'])
     link=(lambda a: cx_url(s,a)) if s['slug'] in CITY_CLUSTERS else area_url
     title=("%s in Every Area We Serve"%s['label']) if s['slug'] in CITY_CLUSTERS else T("Areas We Serve Around {city}")
@@ -1380,7 +1696,7 @@ def p_hub(s):
                               "actually differ there."),link)
     body += final_cta(T("Get your wall priced properly"),
         "Free on-site visit, itemised written scope, nothing to sign on the day.")
-    nodes=[{"@type":"Service","name":s['label'],"serviceType":s['label'],
+    nodes=[{"@type":"Service","name":strip(s['label']),"serviceType":strip(s['label']),
             "description":strip(T(s['blurb'])),"url":SITE['domain']+hub_url(s),
             "provider":{"@id":SITE['domain']+"/#business"},
             "areaServed":{"@type":"City","name":SITE['city']}},
@@ -1389,18 +1705,23 @@ def p_hub(s):
 
 def p_child(s,label,slug):
     fmt=dict(child=strip(label),label=s['label'])
+    c=COPY.get('child',{}).get(slug,{})
+    what=c.get('what') or ['[Write 2–3 paragraphs defining %s for a {city} reader. Lead with what it is, then '
+                           'why {region} ground makes it matter. This is the section that has to be genuinely yours.]'
+                           %strip(label).lower()]
+    when=c.get('when') or [("Point one.","[detail]"),("Point two.","[detail]")]
+    how =c.get('how')  or COPY['standards'][:4]
+    faqs=c.get('faqs') or COPY['faq_groups'][2][2][:3]
     body = hero(s['label'],strip(label),T(" in {city}, {state}"),
-                T("handles {child_l} across {region} — here is what the work actually involves.",
+                T(c.get('lede') or "handles {child_l} across {region} — here is what the work actually involves.",
                   child_l=strip(label).lower()),
                 [("Home","/"),(s['label'],hub_url(s)),(strip(label),None)],"hero-%s"%s['slug'])
     art  = '      <h2>What Is %s?</h2>\n'%strip(label)
-    art += ('      <p>[Write 2–3 paragraphs defining %s for a {city} reader. Lead with what it is, then '
-            'why {region} ground makes it matter. This is the section that has to be genuinely yours.]</p>\n'
-            %strip(label).lower())
-    art += '      <h2>When It Is Needed</h2>\n'+checklist([("Point one.","[detail]"),("Point two.","[detail]")])
-    art += '      <h2>How We Do It</h2>\n'+checklist([(T(a),T(b)) for a,b in COPY['standards'][:4]])
+    art += ''.join('      <p>%s</p>\n'%T(x) for x in what)
+    art += '      <h2>When It Is Needed</h2>\n'+checklist([(T(a),T(b)) for a,b in when])
+    art += '      <h2>How We Do It</h2>\n'+checklist([(T(a),T(b)) for a,b in how])
     art += '      <h2>%s FAQ\'s</h2>\n'%strip(label)
-    art += faqblock([(T(q),T(a)) for q,a in COPY['faq_groups'][2][2][:3]])
+    art += faqblock([(T(q),T(a)) for q,a in faqs])
     art += '\n      <h2>Related %s Work</h2>\n'%s['label']
     art += cat_grid([(c[0],child_url(s,c[1])) for c in s['children'] if c[1]!=slug])
     body += ('<section class="pagebody">\n  <div class="wrap narrow"><article>\n%s  </article></div>\n</section>\n'
@@ -1410,7 +1731,7 @@ def p_child(s,label,slug):
             "url":SITE['domain']+child_url(s,slug),"provider":{"@id":SITE['domain']+"/#business"},
             "areaServed":{"@type":"City","name":SITE['city']}},
            crumb_node([("Home","/"),(s['label'],hub_url(s)),(strip(label),child_url(s,slug))]),
-           faq_node(COPY['faq_groups'][2][2][:3]), business_node()]
+           faq_node(faqs), business_node()]
     return page(child_url(s,slug),T(COPY['child_title'],**fmt),T(COPY['child_desc'],**fmt),body,nodes)
 
 def p_area(a):
@@ -1575,17 +1896,19 @@ def p_404():
 # 6. SITE FILES + MAIN
 # ==========================================================================
 
+# Clusters whose sub-pages are built. The other clusters get a hub page only for now;
+# the per-area pages and the cluster x area layer are also deliberately not built yet.
+BUILT_CHILDREN = ["retaining-wall-installation"]
+
 def all_pages():
-    P=[("/",p_home()),("/areas/",p_areas()),("/faq/",p_faq()),("/about/",p_about()),("/contact/",p_contact())]
+    P=[("/",p_home())]
     for s in SILOS:
         P.append((hub_url(s),p_hub(s)))
-        for label,slug in s['children']:
-            P.append((child_url(s,slug),p_child(s,label,slug)))
-    for a in AREAS:
-        P.append((area_url(a),p_area(a)))
-        for s in SILOS:
-            if s['slug'] in CITY_CLUSTERS:
-                P.append((cx_url(s,a),p_cx(s,a)))
+        if s['slug'] in BUILT_CHILDREN:
+            for label,slug in s['children']:
+                P.append((child_url(s,slug),p_child(s,label,slug)))
+    P+=[("/areas/",p_areas()),("/faq/",p_faq()),("/about/",p_about()),("/contact/",p_contact()),
+        ("/404.html",p_404())]
     return P
 
 def core_pages():
