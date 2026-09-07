@@ -185,7 +185,7 @@ COPY = dict(
  home_desc    = "Retaining wall contractor in {city}, {state} — installation, repair, engineered "
                 "construction and hillside walls in limestone, concrete, block and timber. Free on-site estimate.",
  home_h1      = "Retaining Wall Contractor",
- home_h1_sub  = "in {city}, {state}",
+ home_h1_sub  = " in {city}, {state}",
  home_lede    = "The Balcones Escarpment runs through {city} roughly along the MoPac corridor, and it "
                 "divides the city into two kinds of ground that do not take the same wall. West of the "
                 "line, thin soil sits on Edwards and Glen Rose limestone that bites a saw blade; east of "
