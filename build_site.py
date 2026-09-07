@@ -2023,7 +2023,7 @@ def main():
     for name,content in (('sitemap.xml',sitemap(paths)),('robots.txt',robots()),('_headers',headers()),
                          ('_redirects',redirects()),('wrangler.jsonc',wrangler()),
                          ('favicon.svg',T(FAVICON)),
-                         ('.assetsignore','.git\n.gitignore\n.assetsignore\nwrangler.jsonc\nREADME.md\nbuild_site.py\n')):
+                         ('.assetsignore','.git\n.gitignore\n.assetsignore\nwrangler.jsonc\nREADME.md\nbuild_site.py\ngen_images.py\n')):
         io.open(os.path.join(out,name),'w',encoding='utf-8').write(content)
     for d in ('img','fonts'): os.makedirs(os.path.join(out,d),exist_ok=True)
     print('%d pages written to %s/'%(len(pages),out))

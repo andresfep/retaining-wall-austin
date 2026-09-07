@@ -4,3 +4,4 @@
 wrangler.jsonc
 README.md
 build_site.py
+gen_images.py
